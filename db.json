@@ -1,0 +1,226 @@
+{
+  "income_categories": [
+    { "id": "a", "type": "월급" },
+    { "id": "b", "type": "용돈" },
+    { "id": "c", "type": "금융소득" },
+    { "id": "d", "type": "기타수입" }
+  ],
+  "expense_categories": [
+    { "id": "a", "type": "식비" },
+    { "id": "b", "type": "교통" },
+    { "id": "c", "type": "공과금" },
+    { "id": "d", "type": "기타지출" }
+  ],
+  "transactions": [
+    {
+      "date": "2024-06-01",
+      "type": "income",
+      "category": "a",
+      "amount": 5000000,
+      "memo": "월급 수령"
+    },
+    {
+      "date": "2024-06-02",
+      "type": "expense",
+      "category": "a",
+      "amount": 300000,
+      "memo": "식료품 구매"
+    },
+    {
+      "date": "2024-06-03",
+      "type": "income",
+      "category": "c",
+      "amount": 200000,
+      "memo": "주식 배당금 수령"
+    },
+    {
+      "date": "2024-06-04",
+      "type": "expense",
+      "category": "b",
+      "amount": 50000,
+      "memo": "대중교통 이용"
+    },
+    {
+      "date": "2024-06-05",
+      "type": "income",
+      "category": "b",
+      "amount": 100000,
+      "memo": "부모님으로부터 용돈 받음"
+    },
+    {
+      "date": "2024-06-06",
+      "type": "expense",
+      "category": "c",
+      "amount": 150000,
+      "memo": "전기 요금 지불"
+    },
+    {
+      "date": "2024-06-07",
+      "type": "income",
+      "category": "d",
+      "amount": 70000,
+      "memo": "장기 예금 이자 수령"
+    },
+    {
+      "date": "2024-06-08",
+      "type": "expense",
+      "category": "a",
+      "amount": 250000,
+      "memo": "외식 비용"
+    },
+    {
+      "date": "2024-06-09",
+      "type": "income",
+      "category": "a",
+      "amount": 5000000,
+      "memo": "월급 수령"
+    },
+    {
+      "date": "2024-06-10",
+      "type": "expense",
+      "category": "b",
+      "amount": 60000,
+      "memo": "자동차 주유"
+    },
+    {
+      "date": "2024-06-11",
+      "type": "income",
+      "category": "d",
+      "amount": 30000,
+      "memo": "부업 수입"
+    },
+    {
+      "date": "2024-06-12",
+      "type": "expense",
+      "category": "a",
+      "amount": 200000,
+      "memo": "식료품 구매"
+    },
+    {
+      "date": "2024-06-13",
+      "type": "income",
+      "category": "b",
+      "amount": 80000,
+      "memo": "친구로부터 용돈 받음"
+    },
+    {
+      "date": "2024-06-14",
+      "type": "expense",
+      "category": "b",
+      "amount": 70000,
+      "memo": "택시비 지출"
+    },
+    {
+      "date": "2024-06-15",
+      "type": "income",
+      "category": "c",
+      "amount": 150000,
+      "memo": "이자 수익"
+    },
+    {
+      "date": "2024-06-16",
+      "type": "expense",
+      "category": "a",
+      "amount": 180000,
+      "memo": "외식 비용"
+    },
+    {
+      "date": "2024-06-17",
+      "type": "income",
+      "category": "a",
+      "amount": 5000000,
+      "memo": "월급 수령"
+    },
+    {
+      "date": "2024-06-18",
+      "type": "expense",
+      "category": "c",
+      "amount": 120000,
+      "memo": "수도 요금 지불"
+    },
+    {
+      "date": "2024-06-19",
+      "type": "income",
+      "category": "d",
+      "amount": 50000,
+      "memo": "주식 매도 수입"
+    },
+    {
+      "date": "2024-06-20",
+      "type": "expense",
+      "category": "a",
+      "amount": 220000,
+      "memo": "식료품 구매"
+    },
+    {
+      "date": "2024-06-21",
+      "type": "income",
+      "category": "c",
+      "amount": 180000,
+      "memo": "이자 수익"
+    },
+    {
+      "date": "2024-06-22",
+      "type": "expense",
+      "category": "b",
+      "amount": 80000,
+      "memo": "자전거 수리비"
+    },
+    {
+      "date": "2024-06-23",
+      "type": "income",
+      "category": "b",
+      "amount": 70000,
+      "memo": "친구로부터 용돈 받음"
+    },
+    {
+      "date": "2024-06-24",
+      "type": "expense",
+      "category": "d",
+      "amount": 100000,
+      "memo": "영화 관람"
+    },
+    {
+      "date": "2024-06-25",
+      "type": "income",
+      "category": "a",
+      "amount": 5000000,
+      "memo": "월급 수령"
+    },
+    {
+      "date": "2024-06-26",
+      "type": "expense",
+      "category": "b",
+      "amount": 70000,
+      "memo": "대중교통 이용"
+    },
+    {
+      "date": "2024-06-27",
+      "type": "income",
+      "category": "d",
+      "amount": 40000,
+      "memo": "알바비 수입"
+    },
+    {
+      "date": "2024-06-28",
+      "type": "expense",
+      "category": "a",
+      "amount": 270000,
+      "memo": "외식 비용"
+    },
+    {
+      "date": "2024-06-29",
+      "type": "income",
+      "category": "c",
+      "amount": 250000,
+      "memo": "주식 배당금 수령"
+    },
+    {
+      "date": "2024-06-30",
+      "type": "expense",
+      "category": "b",
+      "amount": 60000,
+      "memo": "자동차 주유"
+    }
+  ]
+}
