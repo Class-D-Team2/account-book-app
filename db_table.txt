@@ -1,3 +1,5 @@
-budget: date(day+time), type(income, expense), category, amount, memo 
+budget: date(date + time), type(income, expense), category, amount(int), memo(string) 
 income-category: '월급', '용돈', '금융소득', '기타수입'
 expense-category: '식비', '교통', '공과금', '기타지출'
+
+// json 파일 수정 요망
