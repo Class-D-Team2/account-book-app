@@ -1,13 +1,13 @@
 <template>
     <div>
-      <h1>Page Not Found</h1>
-      <p>The page you are looking for does not exist.</p>
+      <!-- Your TodoItem component template -->
+      <p>Todo Item</p>
     </div>
   </template>
   
   <script>
   export default {
-    name: 'NotFound',
+    name: 'TodoItem',
   };
   </script>
   
