@@ -15,7 +15,7 @@
   </div>
   <div>
     <router-link class="btn btn-primary" to="/transactions/create">
-      할일추
+      추가
     </router-link>
   </div>
 </template>
