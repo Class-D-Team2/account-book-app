@@ -1,29 +1,27 @@
 <template>
   <div class="scroll-container">
-    <div
-      v-for="transactionItem in transactionList"
-      :key="transactionItem.id"
-      @click="updateTransactionList"
-    >
-      {{ transaction.transaction }}
+    <div class="card">
+      <ul>
+        <router-link to="/transaction/create  "
+          ><TransactionItem
+        /></router-link>
+      </ul>
     </div>
+  </div>
+  <div>
+    <router-link class="btn btn-primary" to="/transactions/create">
+      할일추가
+    </router-link>
   </div>
 </template>
 <style>
 .scroll-container {
   height: 400px;
   overflow-y: auto;
+  margin: auto;
 }
 </style>
 
 <script setup>
-import { useTransactionList } from '@/stores/account.js';
-import { computed } from 'vue';
-import TransactionItem from '@/components/TransctionItem.vue';
-
-const transactionStore = useTransactionList();
-const { updateTransactionList } = transactionListstore;
-const transactionList = computed(
-  () => transactionStoreListStroe.transactionList
-);
+import TransactionItem from '@/components/TransactionItem.vue';
 </script>

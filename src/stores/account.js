@@ -1,14 +1,27 @@
 import { reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
+
 import axios from 'axios';
 
-export const useTransactionList = defineStore('transactionList', () => {
-  const BASEURI = './api/transactions';
+export const useTransactionListStore = defineStore('transactionList', () => {
+  const BASEURI = '/api/transactions';
   const state = reactive({ transactionList: [] });
-
-  const addTransaction = async ({ transaction, desc }, successCallback) => {
+  const fetchTransaction = async () => {
     try {
-      const payload = { transaction, desc };
+      const response = await axios.get(BASEURI);
+      if (response.status === 200) {
+        state.transactionList = response.data;
+      } else {
+        alert('데이터 조회 실패');
+      }
+    } catch (error) {
+      alert('에러발생 :' + error);
+    }
+  };
+  console.log(useTransactionListStore());
+  const addTransaction = async ({ transaction }, successCallback) => {
+    try {
+      const payload = { transaction };
       const response = await axios.post(BASEURI, payload);
       if (response.status === 201) {
         state.transactionList.push({ ...response.data });
@@ -21,11 +34,11 @@ export const useTransactionList = defineStore('transactionList', () => {
     }
   };
   const updateTransaction = async (
-    { date, id, transaction, desc, memo },
+    { date, id, type, category, amount, memo },
     successCallback
   ) => {
     try {
-      const payload = { date, id, transaction, desc, memo };
+      const payload = { date, id, type, category, amount, memo };
       const response = await axios.put(BASEURI + `/${id}`, payload);
       if (response.status === 200) {
         let index = state.transactionList.findIndex(
@@ -73,13 +86,14 @@ export const useTransactionList = defineStore('transactionList', () => {
     }
   };
   const transactionList = computed(() => state.transactionList);
-  const isLoading = computed(() => state.isLoading);
+  // const isLoading = computed(() => state.isLoading);
   const transactionCount = computed(() => state.transactionList.length);
 
   return {
     transactionList,
-    isLoading,
+    // isLoading,
     transactionCount,
+    fetchTransaction,
     addTransaction,
     deleteTransaction,
     updateTransaction,
