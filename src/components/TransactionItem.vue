@@ -4,7 +4,9 @@
       {{
         `${transactionItem.date} / ${mapType(
           transactionItem.type
-        )}/ ${mapCategory(transactionItem.category)} / ${transactionItem.memo}`
+        )}/ ${mapCategory(transactionItem.category)} / ${
+          transactionItem.memo
+        }/ ${transactionItem.amount}`
       }}
     </span>
   </li>
@@ -24,6 +26,7 @@
   overflow: hidden;
   border: 2px solid black;
   padding: 5px;
+  letter-spacing: 2px;
 }
 </style>
 
