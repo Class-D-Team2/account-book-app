@@ -15,8 +15,8 @@
         <input type="number" v-model="transaction.amount" id="amount" required />
       </div>
       <div>
-        <label for="content">Content:</label>
-        <input type="text" v-model="transaction.content" id="content" required />
+        <label for="memo">Memo:</label>
+        <input type="text" v-model="transaction.memo" id="memo" required />
       </div>
       <button type="submit">Add</button>
     </form>
@@ -33,14 +33,16 @@ export default {
         date: '',
         category: '',
         amount: '',
-        content: '',
+        memo: '', // Changed from content to memo
       },
     };
   },
   methods: {
-    async addTransaction() {
+    addTransaction() {
       const store = useTransactionStore();
-      await store.addTransaction(this.transaction);
+      console.log('Adding transaction:', this.transaction);
+      store.addTransaction(this.transaction);
+      console.log('Transaction added');
       this.$router.push('/'); // Redirect to home after adding
     },
   },

@@ -15,8 +15,8 @@
         <input type="number" v-model="transaction.amount" id="amount" required />
       </div>
       <div>
-        <label for="content">Content:</label>
-        <input type="text" v-model="transaction.content" id="content" required />
+        <label for="memo">Memo:</label>
+        <input type="text" v-model="transaction.memo" id="memo" required />
       </div>
       <button type="submit">Update</button>
     </form>
@@ -34,7 +34,7 @@ export default {
         date: '',
         category: '',
         amount: '',
-        content: '',
+        memo: '',
       },
     };
   },
@@ -42,19 +42,19 @@ export default {
     this.fetchTransaction();
   },
   methods: {
-    async fetchTransaction() {
-      const transactionId = this.$route.params.id;
+    fetchTransaction() {
+      const transactionId = parseInt(this.$route.params.id, 10);
       const store = useTransactionStore();
-      const transaction = await store.fetchTransactionById(transactionId);
+      const transaction = store.fetchTransactionById(transactionId);
       if (transaction) {
         this.transaction = { ...transaction };
       } else {
         this.$router.push('/'); // Redirect to home if transaction is not found
       }
     },
-    async updateTransaction() {
+    updateTransaction() {
       const store = useTransactionStore();
-      await store.updateTransaction(this.transaction);
+      store.updateTransaction(this.transaction);
       this.$router.push('/'); // Redirect to home after updating
     },
   },

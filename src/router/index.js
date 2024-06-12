@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../pages/Home.vue';
-import Create from '../pages/Create.vue';
-import Update from '../pages/Update.vue';
-import NotFound from '../pages/NotFound.vue';
+import Home from '@/pages/Home.vue';
+import Create from '@/pages/Create.vue';
+import Update from '@/pages/Update.vue';
+import NotFound from '@/pages/NotFound.vue';
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/create', component: Create, name: 'Create' },
-  { path: '/update/:id', component: Update, name: 'Update' },
+  { path: '/create', component: Create },
+  { path: '/edit/:id', component: Update },
   { path: '/:pathMatch(.*)*', component: NotFound },
 ];
 
