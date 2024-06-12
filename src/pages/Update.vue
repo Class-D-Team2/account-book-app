@@ -42,25 +42,19 @@ export default {
     this.fetchTransaction();
   },
   methods: {
-    //Fecthes the transaction data by ID from store
-    fetchTransaction() {
+    async fetchTransaction() {
       const transactionId = this.$route.params.id;
-      console.log('URL Transaction ID:', transactionId);
       const store = useTransactionStore();
-      const transaction = store.fetchTransactionById(parseInt(transactionId, 10));
+      const transaction = await store.fetchTransactionById(transactionId);
       if (transaction) {
         this.transaction = { ...transaction };
-        console.log('Transaction fetched:', this.transaction);
       } else {
-        console.error(`Transaction with ID ${transactionId} not found`);
         this.$router.push('/'); // Redirect to home if transaction is not found
       }
     },
-    
-    updateTransaction() {
+    async updateTransaction() {
       const store = useTransactionStore();
-      store.updateTransaction(this.transaction);
-      console.log('Transaction updated:', this.transaction);
+      await store.updateTransaction(this.transaction);
       this.$router.push('/'); // Redirect to home after updating
     },
   },
