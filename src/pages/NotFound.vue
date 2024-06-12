@@ -1,5 +1,17 @@
 <template>
-  <div class="card card-body">
-    <h2>Home</h2>
-  </div>
-</template>
+    <div>
+      <h1>Page Not Found</h1>
+      <p>The page you are looking for does not exist.</p>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    name: 'NotFound',
+  };
+  </script>
+  
+  <style scoped>
+  /* Add any specific styles for this component */
+  </style>
+  
