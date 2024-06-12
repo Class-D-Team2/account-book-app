@@ -42,6 +42,7 @@ export default {
     this.fetchTransaction();
   },
   methods: {
+    //Fecthes the transaction data by ID from store
     fetchTransaction() {
       const transactionId = this.$route.params.id;
       console.log('URL Transaction ID:', transactionId);
@@ -55,6 +56,7 @@ export default {
         this.$router.push('/'); // Redirect to home if transaction is not found
       }
     },
+    
     updateTransaction() {
       const store = useTransactionStore();
       store.updateTransaction(this.transaction);
