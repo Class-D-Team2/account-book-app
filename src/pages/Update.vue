@@ -7,14 +7,34 @@
         <input type="date" v-model="transaction.date" id="date" required />
       </div>
       <div>
-        <label for="category">Category:</label>
-        <input
-          type="text"
-          v-model="transaction.category"
-          id="category"
-          required
-        />
+        <label for="type">거래유형:</label>
+        <select v-model="transaction.type" id="type" required>
+          <option value="income">수입</option>
+          <option value="expense">지출</option>
+        </select>
       </div>
+      <template v-if="transaction.type === 'income'">
+        <div>
+          <label for="category">세부내역:</label>
+          <select v-model="transaction.category" id="category" required>
+            <option value="a">월급</option>
+            <option value="b">용돈</option>
+            <option value="c">금융소득</option>
+            <option value="d">기타</option>
+          </select>
+        </div>
+      </template>
+      <template v-if="transaction.type === 'expense'">
+        <div>
+          <label for="category">세부내역:</label>
+          <select v-model="transaction.category" id="category" required>
+            <option value="a">식비</option>
+            <option value="b">교통비</option>
+            <option value="c">주거비</option>
+            <option value="d">기타</option>
+          </select>
+        </div>
+      </template>
       <div>
         <label for="amount">Amount:</label>
         <input
@@ -58,13 +78,13 @@ export default {
       if (transaction) {
         this.transaction = { ...transaction };
       } else {
-        this.$router.push('/'); // Redirect to home if transaction is not found
+        this.$router.push('/transactions'); // Redirect to home if transaction is not found
       }
     },
     async updateTransaction() {
       const store = useTransactionStore();
       await store.updateTransaction(this.transaction);
-      this.$router.push('/'); // Redirect to home after updating
+      this.$router.push('/transactions'); // Redirect to home after updating
     },
   },
 };
