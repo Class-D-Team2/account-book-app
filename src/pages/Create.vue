@@ -7,16 +7,37 @@
         <input type="date" v-model="transaction.date" id="date" required />
       </div>
       <div>
-        <label for="category">Category:</label>
-        <input
-          type="text"
-          v-model="transaction.category"
-          id="category"
-          required
-        />
+        <label for="type">거래유형:</label>
+        <select v-model="transaction.type" id="type" required>
+          <option value="income">수입</option>
+          <option value="expense">지출</option>
+        </select>
       </div>
+      <template v-if="transaction.type === 'income'">
+        <div>
+          <label for="category">세부내역:</label>
+          <select v-model="transaction.category" id="category" required>
+            <option value="a">월급</option>
+            <option value="b">용돈</option>
+            <option value="c">금융소득</option>
+            <option value="d">기타</option>
+          </select>
+        </div>
+      </template>
+      <template v-if="transaction.type === 'expense'">
+        <div>
+          <label for="category">세부내역:</label>
+          <select v-model="transaction.category" id="category" required>
+            <option value="a">식비</option>
+            <option value="b">교통비</option>
+            <option value="c">주거비</option>
+            <option value="d">기타</option>
+          </select>
+        </div>
+      </template>
+
       <div>
-        <label for="amount">Amount:</label>
+        <label for="amount">금액:</label>
         <input
           type="number"
           v-model="transaction.amount"
@@ -25,13 +46,8 @@
         />
       </div>
       <div>
-        <label for="content">Content:</label>
-        <input
-          type="text"
-          v-model="transaction.content"
-          id="content"
-          required
-        />
+        <label for="memo">세부사항:</label>
+        <input type="text" v-model="transaction.memo" id="memo" required />
       </div>
       <button type="submit">Add</button>
     </form>
@@ -45,8 +61,9 @@ export default {
       transaction: {
         date: '',
         category: '',
+        type: '',
         amount: '',
-        content: '',
+        memo: '',
       },
     };
   },
@@ -54,10 +71,30 @@ export default {
     async addTransaction() {
       const store = useTransactionStore();
       await store.addTransaction(this.transaction);
-      this.$router.push('/'); // Redirect to home after adding
+      this.$router.push('/transactions'); // Redirect to home after adding
     },
   },
 };
+
+// const categoryMapping = {
+//   income: [
+//     { value: 'a', label: '월급' },
+//     { value: 'b', label: '용돈' },
+//     { value: 'c', label: '금융소득' },
+//     { value: 'd', label: '기타' },
+//   ],
+//   expense: [
+//     { value: 'a', label: '식비' },
+//     { value: 'b', label: '교통비' },
+//     { value: 'c', label: '주거비' },
+//     { value: 'd', label: '기타' },
+//   ],
+// };
+// const filteredCategories = computed(() => {
+//   return selectedType.value === 'all'
+//     ? []
+//     : categoryMapping[selectedType.value] || [];
+// });
 </script>
 <style scoped>
 /* Add any specific styles for this component */

@@ -10,6 +10,12 @@
 <script setup>
 import Sidebar from '@/components/Sidebar.vue';
 import { useTransactionListStore } from '@/stores/account.js';
+import { usePeriodCostStore } from './stores/periodCost';
+
+const periodCostStore = usePeriodCostStore();
+const fetchHomeList = periodCostStore.fetchTransactions;
+fetchHomeList();
+
 const transactionListStore = useTransactionListStore();
 const fetchTransactionList = transactionListStore.fetchTransaction;
 fetchTransactionList();

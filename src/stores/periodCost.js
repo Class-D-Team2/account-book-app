@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref, reactive, computed } from 'vue';
 import axios from 'axios';
 
-export const usePeriodCostStore = defineStore('transactionList', () => {
+export const usePeriodCostStore = defineStore('periodCost', () => {
   const BASEURI = '/api/transactions';
   const state = reactive({
     transactions: [],

@@ -277,11 +277,20 @@
       "memo": "자동차 주유"
     },
     {
-      "id": "a964",
-      "date": "2024-06-12",
-      "category": "1",
-      "amount": 1,
-      "content": "1"
+      "id": "e43f",
+      "date": "2024-06-18",
+      "category": "b",
+      "type": "income",
+      "amount": 100000,
+      "memo": "친구에게 받음"
+    },
+    {
+      "id": "7691",
+      "date": "2024-06-29",
+      "category": "d",
+      "type": "income",
+      "amount": 10000000,
+      "memo": "용돈"
     }
   ]
 }
