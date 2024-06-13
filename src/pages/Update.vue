@@ -73,7 +73,6 @@ export default {
 <style scoped>
 /* Add any specific styles for this component */
 </style>
-
 <!-- <template>
   <div>
     <h1>Update Transaction</h1>
