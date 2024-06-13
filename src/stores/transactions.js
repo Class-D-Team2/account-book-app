@@ -38,5 +38,21 @@ export const useTransactionStore = defineStore('transaction', {
         console.error('Error updating transaction:', error);
       }
     },
+    async deleteTransaction(deletedTransaction) {
+      try {
+        const response = await axios.delete(
+          `/api/transactions/${deletedTransaction.id}`,
+          deletedTransaction
+        );
+        const index = this.transactions.findIndex(
+          (transaction) => transaction.id === deletedTransaction.id
+        );
+        if (index !== -1) {
+          this.transactions.splice(index, 1, response.data);
+        }
+      } catch (error) {
+        console.error('Error updating transaction:', error);
+      }
+    },
   },
 });
