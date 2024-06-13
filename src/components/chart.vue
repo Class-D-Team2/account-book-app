@@ -12,9 +12,13 @@ import Chart from 'chart.js/auto';
 export default defineComponent({
   name: 'ChartComponent',
   mounted() {
-    this.initChart();
+    this.fetchDataAndRenderChart();
   },
   methods: {
+    async fetchDataAndRenderChart() {
+      await useChartStore().fetchDataAndRenderChart();
+      this.initChart();
+    },
     initChart() {
       const ctx = this.$refs.chartCanvas.getContext('2d');
       this.chart = new Chart(ctx, useChartStore().chartConfig);
