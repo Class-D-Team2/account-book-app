@@ -104,20 +104,6 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col class="d-flex justify-end" cols="12">
-        <router-link to="/transactions">
-          <v-btn depressed large color="yellow white--text">
-            <span>거래 내역 보기</span>
-          </v-btn>
-        </router-link>
-        <router-link to="/transactions/create">
-          <v-btn depressed large color="yellow white--text">
-            <span>거래 내역 추가</span>
-          </v-btn>
-        </router-link>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 

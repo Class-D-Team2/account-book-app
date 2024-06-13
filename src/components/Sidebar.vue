@@ -1,19 +1,26 @@
 <template>
   <nav class="sidebar">
-    <span class="navbar-brand ps-2 fs-1">가계부</span>
+    <span class="navbar-brand ps-2 fs-1">2조 가계부</span>
     <div>
       <ul class="navbar-nav">
         <li>
           <!-- to에 있는 주소로 각각의 링크 생성해줌 -->
-          <router-link class="nav-link" to="/">Home</router-link>
+          <router-link class="nav-link" to="/">메인화면</router-link>
         </li>
         <li>
           <router-link class="nav-link" to="/transactions"
-            >TransactionList</router-link
+            >거래내역</router-link
           >
+        </li>
+        <!-- 달력 추가 -->
+        <li>
+          <router-link class="nav-link" to="/calendar">월간내역</router-link>
         </li>
       </ul>
     </div>
+    <router-link class="nav-link" to="/transactions/create">
+      내역추가
+    </router-link>
   </nav>
 </template>
 

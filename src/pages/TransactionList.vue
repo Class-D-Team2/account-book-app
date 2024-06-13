@@ -1,4 +1,5 @@
 <template>
+  <h1>거래내역 조회</h1>
   <div class="scroll-container">
     <div>
       <label for="transactionType">거래 유형:</label>
@@ -42,15 +43,10 @@
       </ul>
     </div>
   </div>
-  <div>
-    <router-link class="btn btn-primary" to="/transactions/create">
-      추가
-    </router-link>
-  </div>
 </template>
 <style>
 .scroll-container {
-  height: 400px;
+  height: 600px;
   overflow-y: auto;
   margin: auto;
 }

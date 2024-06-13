@@ -22,7 +22,7 @@
     </span>
   </li>
 </template>
-<style>
+<style scoped>
 .transaction-item {
   display: flex;
   margin-bottom: 10px;

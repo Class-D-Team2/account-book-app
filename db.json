@@ -40,17 +40,17 @@
       "id": "1",
       "date": "2024-06-01",
       "type": "income",
-      "category": "a",
-      "amount": 110,
-      "memo": "월급 수령"
+      "category": "c",
+      "amount": 20000,
+      "memo": "주식 배당금 수령"
     },
     {
       "id": "2",
       "date": "2024-06-02",
-      "type": "expense",
-      "category": "a",
-      "amount": 300000,
-      "memo": "식료품 구매"
+      "type": "income",
+      "category": "c",
+      "amount": 200000,
+      "memo": "주식 배당금 수령"
     },
     {
       "id": "3",
@@ -275,46 +275,6 @@
       "category": "b",
       "amount": 60000,
       "memo": "자동차 주유"
-    },
-    {
-      "id": "e43f",
-      "date": "2024-06-18",
-      "category": "b",
-      "type": "income",
-      "amount": 100000,
-      "memo": "친구에게 받음"
-    },
-    {
-      "id": "7691",
-      "date": "2024-06-29",
-      "category": "d",
-      "type": "income",
-      "amount": 10000000,
-      "memo": "용돈"
-    },
-    {
-      "id": "7199",
-      "date": "2024-06-21",
-      "category": "a",
-      "type": "income",
-      "amount": 111111,
-      "memo": "용돈"
-    },
-    {
-      "id": "2d03",
-      "date": "2024-06-07",
-      "category": "b",
-      "type": "expense",
-      "amount": 100000,
-      "memo": "친구에게 받음"
-    },
-    {
-      "id": "986f",
-      "date": "2024-06-22",
-      "category": "b",
-      "type": "expense",
-      "amount": 100000,
-      "memo": "친구에게 받음"
     }
   ]
 }
