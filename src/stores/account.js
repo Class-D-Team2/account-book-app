@@ -89,6 +89,7 @@ export const useTransactionListStore = defineStore('transactionList', () => {
   // const isLoading = computed(() => state.isLoading);
   const transactionCount = computed(() => state.transactionList.length);
 
+  console.log(transactionList.value);
   return {
     transactionList,
     // isLoading,
