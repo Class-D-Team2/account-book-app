@@ -9,10 +9,8 @@ import Vuetify from './plugins/vuetify';
 
 const app = createApp(App);
 const pinia = createPinia();
-const pinia = createPinia();
 
 app.use(pinia);
 app.use(Vuetify);
 app.use(router);
-app.use(pinia);
 app.mount('#app');
