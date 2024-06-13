@@ -1,6 +1,6 @@
 <template>
   <nav class="sidebar">
-    <span class="navbar-brand ps-2 fs-1">가계부</span>
+    <span class="navbar-brand ps-2 fs-1">2조 가계부</span>
     <div>
       <ul class="navbar-nav">
         <li>
@@ -18,6 +18,9 @@
         </li>
       </ul>
     </div>
+    <router-link class="nav-link" to="/transactions/create">
+      내역추가
+    </router-link>
   </nav>
 </template>
 

@@ -43,11 +43,6 @@
       </ul>
     </div>
   </div>
-  <div>
-    <router-link class="btn" to="/transactions/create">
-      <v-btn depressed large color="yellow white--text"> 추가</v-btn>
-    </router-link>
-  </div>
 </template>
 <style>
 .scroll-container {

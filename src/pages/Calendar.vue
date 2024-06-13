@@ -30,6 +30,7 @@
               <div class="date-cell">{{ date }}</div>
               <ul>
                 <!-- 날짜가 빈 값이 아닐 때만 거래 항목 표시 -->
+
                 <template v-if="date !== ''">
                   <li
                     v-for="transactionItem in getTransactionsForDate(
