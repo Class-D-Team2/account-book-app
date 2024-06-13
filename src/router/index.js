@@ -3,6 +3,7 @@ import Home from '@/pages/Home.vue';
 import TransactionList from '@/pages/TransactionList.vue';
 import Create from '@/pages/Create.vue';
 import Update from '@/pages/Update.vue';
+import Calendar from '@/pages/Calendar.vue';
 import NotFound from '@/pages/NotFound.vue';
 
 const router = createRouter({
@@ -23,6 +24,10 @@ const router = createRouter({
     {
       path: '/transactions/update/:id',
       component: Update,
+    },
+    {
+      path: '/calendar',
+      component: Calendar,
     },
     {
       path: '/:paths(.*)*',

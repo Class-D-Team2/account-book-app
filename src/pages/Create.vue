@@ -49,7 +49,7 @@
         <label for="memo">세부사항:</label>
         <input type="text" v-model="transaction.memo" id="memo" required />
       </div>
-      <button type="submit">Add</button>
+      <button type="submit">추가</button>
       <button @click="goBack">취소</button>
     </form>
   </div>

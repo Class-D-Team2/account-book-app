@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>Update Transaction</h1>
+    <h1>거래내역 수정</h1>
     <form @submit.prevent="updateTransaction">
       <div>
-        <label for="date">Date:</label>
+        <label for="date">날짜:</label>
         <input type="date" v-model="transaction.date" id="date" required />
       </div>
       <div>
@@ -36,7 +36,7 @@
         </div>
       </template>
       <div>
-        <label for="amount">Amount:</label>
+        <label for="amount">금액:</label>
         <input
           type="number"
           v-model="transaction.amount"
@@ -45,11 +45,11 @@
         />
       </div>
       <div>
-        <label for="memo">Memo:</label>
+        <label for="memo">세부사항:</label>
         <input type="text" v-model="transaction.memo" id="memo" required />
       </div>
-      <button type="submit">Update</button>
-      <button @click="deleteTransaction">Delete</button>
+      <button type="submit">수정</button>
+      <button @click="deleteTransaction">삭제</button>
       <button @click="goBack">취소</button>
     </form>
   </div>
