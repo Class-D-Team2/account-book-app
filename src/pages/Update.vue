@@ -49,6 +49,8 @@
         <input type="text" v-model="transaction.memo" id="memo" required />
       </div>
       <button type="submit">Update</button>
+      <button @click="deleteTransaction">Delete</button>
+      <button @click="goBack">취소</button>
     </form>
   </div>
 </template>
@@ -85,6 +87,23 @@ export default {
       const store = useTransactionStore();
       await store.updateTransaction(this.transaction);
       this.$router.push('/transactions'); // Redirect to home after updating
+    },
+    // async deleteTransaction() {
+    //   const store = useTransactionStore();
+    //   try {
+    //     await store.deleteTransaction(this.transactionItem.id);
+    //   } catch (error) {
+    //     console.error('Error deleting transaction:', error);
+    //     alert('Error occurred while deleting the transaction.');
+    //   }
+    // },
+    async deleteTransaction() {
+      const store = useTransactionStore();
+      await store.deleteTransaction(this.transaction);
+      this.$router.push('/transactons');
+    },
+    goBack() {
+      this.$router.go(-1);
     },
   },
 };

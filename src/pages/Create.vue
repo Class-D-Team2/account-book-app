@@ -50,6 +50,7 @@
         <input type="text" v-model="transaction.memo" id="memo" required />
       </div>
       <button type="submit">Add</button>
+      <button @click="goBack">취소</button>
     </form>
   </div>
 </template>
@@ -72,6 +73,9 @@ export default {
       const store = useTransactionStore();
       await store.addTransaction(this.transaction);
       this.$router.push('/transactions'); // Redirect to home after adding
+    },
+    goBack() {
+      this.$router.go(-1);
     },
   },
 };

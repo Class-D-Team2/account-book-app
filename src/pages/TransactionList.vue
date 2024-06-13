@@ -88,19 +88,13 @@ import { useTransactionListStore } from '@/stores/account.js';
 import { computed, ref } from 'vue';
 import TransactionItem from '@/components/TransactionItem.vue';
 
-// 거래 목록을 관리하는 스토어를 사용
 const transactionListStore = useTransactionListStore();
-
-// 거래 목록을 계산된 속성으로 정의
 const transactionList = computed(() => transactionListStore.transactionList);
-
-// 선택된 거래 유형과 날짜 범위를 추적하는 변수들
 const selectedType = ref('all');
 const selectedCategory = ref('all');
 const startDate = ref('');
 const endDate = ref('');
 
-// 카테고리 매핑 정의
 const categoryMapping = {
   income: [
     { value: 'a', label: '월급' },
@@ -116,36 +110,37 @@ const categoryMapping = {
   ],
 };
 
-// 선택된 유형에 따라 카테고리 목록 필터링
 const filteredCategories = computed(() => {
   return selectedType.value === 'all'
     ? []
     : categoryMapping[selectedType.value] || [];
 });
 
-// 선택된 유형, 카테고리, 날짜 범위에 따라 거래 목록을 필터링하는 계산된 속성
 const filteredList = computed(() => {
-  return transactionList.value.filter((transactionItem) => {
-    // 거래 유형 필터링
-    const matchesType =
-      selectedType.value === 'all' ||
-      transactionItem.type === selectedType.value;
+  return transactionList.value
+    .filter((transactionItem) => {
+      const matchesType =
+        selectedType.value === 'all' ||
+        transactionItem.type === selectedType.value;
 
-    // 카테고리 필터링
-    const matchesCategory =
-      selectedCategory.value === 'all' ||
-      transactionItem.category === selectedCategory.value;
+      const matchesCategory =
+        selectedCategory.value === 'all' ||
+        transactionItem.category === selectedCategory.value;
 
-    // 날짜 필터링
-    const matchesStartDate =
-      !startDate.value ||
-      new Date(transactionItem.date) >= new Date(startDate.value);
-    const matchesEndDate =
-      !endDate.value ||
-      new Date(transactionItem.date) <= new Date(endDate.value);
+      const matchesStartDate =
+        !startDate.value ||
+        new Date(transactionItem.date) >= new Date(startDate.value);
+      const matchesEndDate =
+        !endDate.value ||
+        new Date(transactionItem.date) <= new Date(endDate.value);
 
-    // 유형, 카테고리, 날짜 모두 일치하는 항목만 반환
-    return matchesType && matchesCategory && matchesStartDate && matchesEndDate;
-  });
+      return (
+        matchesType && matchesCategory && matchesStartDate && matchesEndDate
+      );
+    })
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 });
+
+const fetchTransactionList = transactionListStore.fetchTransaction;
+fetchTransactionList();
 </script>
