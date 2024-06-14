@@ -1,71 +1,49 @@
 <template>
-  <!-- <h1 text-align="center">월간내역</h1> -->
   <div class="scroll-container">
-    <div class="calender-container">
+    <div class="calendar-container">
       <div class="calendar-header">
-        <!-- 년도 출력 -->
         <div class="year">{{ year }}년</div>
-        <!-- 월 출력과 이전/다음 달 버튼을 감싸는 div -->
       </div>
+
       <div class="calendar-body">
         <div class="month-nav">
-          <!-- 이전 달 버튼 -->
           <button @click="prevMonth">
             <span class="arrow">◀</span>
           </button>
-          <!-- 월 출력 -->
           <div class="month fs-2">{{ month }}월</div>
-          <!-- 다음 달 버튼 -->
           <button @click="nextMonth"><span class="arrow">▶</span></button>
         </div>
       </div>
       <table class="table table-bordered text-center calendar-table">
         <thead>
           <tr>
-            <!-- 요일 헤더를 반복적으로 생성 -->
             <th v-for="(day, index) in days" :key="index">{{ day }}</th>
           </tr>
         </thead>
         <tbody>
-          <!-- 주 단위로 반복하며 각 주의 날짜를 생성 -->
           <tr v-for="(week, weekIndex) in weeks" :key="weekIndex">
-            <!-- 각 주의 날짜를 반복적으로 생성 -->
             <td v-for="(date, dateIndex) in week" :key="dateIndex">
-              <div class="date-cell">{{ date }}</div>
-              <ul>
-                <!-- 날짜가 빈 값이 아닐 때만 거래 항목 표시 -->
-
-                <template v-if="date !== ''">
-                  <!-- <li
-                    v-for="transactionItem in getTransactionsForDate(
-                      year,
-                      month,
-                      date
-                    )"
-                    :key="transactionItem.id"
-                    class="transaction-item"
-                  >
-                    <div class="transaction-details">
-                      {{ mapType(transactionItem.type) }} /
-                      {{ transactionItem.amount }}
-                    </div>
-                  </li> -->
-                  <div
+              <div class="date-cell" v-if="date !== ''">
+                {{ date }}
+                <ul v-if="hasTransactions(year, month, date)">
+                  <li
                     class="totalIncome"
-                    v-if="getTotalIncomeForDate(year, month, date) != 0"
+                    v-if="getTotalIncomeForDate(year, month, date) > 0"
                   >
                     {{ '수입' }} {{ getTotalIncomeForDate(year, month, date) }}
-                  </div>
-                  <!-- {{ '수입' }} {{ getTotalIncomeForDate(year, month, date) }} -->
-                  <div
+                  </li>
+                  <li
                     class="totalOutcome"
-                    v-if="getTotalExpenseForDate(year, month, date) != 0"
+                    v-if="getTotalExpenseForDate(year, month, date) > 0"
                   >
                     {{ '지출' }} {{ getTotalExpenseForDate(year, month, date) }}
-                  </div>
-                  <!-- {{ '지출' }} {{ getTotalExpenseForDate(year, month, date) }} -->
-                </template>
-              </ul>
+                  </li>
+                </ul>
+              </div>
+              <div class="empty-cell" v-else>
+                &nbsp;
+                <!-- Non-breaking space to ensure the cell retains size -->
+              </div>
             </td>
           </tr>
         </tbody>
@@ -81,7 +59,7 @@ export default {
   name: 'Calendar',
   data() {
     return {
-      days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      days: ['일', '월', '화', '수', '목', '금', '토'],
       weeks: [],
       year: 2024,
       month: 6,
@@ -104,7 +82,7 @@ export default {
           this.generateCalendar(this.year, this.month);
         })
         .catch((error) => {
-          console.error('Error fetching JSON file', error);
+          console.error('JSON 파일 가져오기 오류', error);
         });
     },
     generateCalendar(year, month) {
@@ -155,6 +133,9 @@ export default {
       }
       this.generateCalendar(this.year, this.month);
     },
+    hasTransactions(year, month, date) {
+      return this.getTransactionsForDate(year, month, date).length > 0;
+    },
     getTransactionsForDate(year, month, date) {
       if (!date || !this.transactions) return [];
 
@@ -164,15 +145,6 @@ export default {
       return this.transactions.filter(
         (transaction) => transaction.date === formattedDate
       );
-    },
-    mapType(type) {
-      return type === 'income' ? '수입' : '지출';
-    },
-    mapCategory(type, categoryId) {
-      const categories =
-        type === 'income' ? this.incomeCategories : this.expenseCategories;
-      const category = categories.find((cat) => cat.id === categoryId);
-      return category ? category.name : '';
     },
     getTotalIncomeForDate(year, month, date) {
       const transactions = this.getTransactionsForDate(year, month, date);
@@ -195,6 +167,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .scroll-container {
   height: 90vh;
@@ -217,6 +190,7 @@ export default {
   align-items: center;
   margin-bottom: 1em;
 }
+
 .calendar-body {
   display: flex;
   justify-content: center;
@@ -226,6 +200,7 @@ export default {
 
 .year {
   margin-right: 1em;
+  font-size: 50px;
 }
 
 .month-nav {
@@ -251,21 +226,20 @@ export default {
   align-items: flex-start;
   justify-content: flex-start;
   padding: 0.5em;
-  height: 10px;
+  min-height: 100px; /* 최소 높이 설정 */
 }
 
-.transaction-item {
-  display: flex;
-  /* margin-bottom: 10px; */
+.empty-cell {
+  min-height: 100px; /* 비어 있는 셀도 동일한 최소 높이로 설정 */
 }
 
 .totalIncome {
   color: red;
-  /* 달력 개별 아이템 style -> 위치 수정, 색낄 조건문, 카테고리 별 아이콘? */
+  font-style: 0.8em;
 }
 
 .totalOutcome {
   color: blue;
-  /* 달력 개별 아이템 style -> 위치 수정, 색낄 조건문, 카테고리 별 아이콘? */
+  font-style: 0.8em;
 }
 </style>

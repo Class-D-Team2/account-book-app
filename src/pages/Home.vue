@@ -1,103 +1,49 @@
 <template>
-  <!-- <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-1">
-        <pagination
-          v-model="selectedMonth"
-          :total-visible="1"
-          :length="totalMonths"
-        ></pagination>
-      </div>
-    </div>
-
-    <div class="row justify-content-center">
-      <div class="col-4">
-        <div class="card">
-          <div class="card-title">총 수입</div>
-          <div class="card-text">{{ monthlyIncome }}</div>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="card">
-          <div class="card-title">총 지출</div>
-          <div class="card-text">{{ monthlyExpense }}</div>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="card">
-          <div class="card-title">순수익</div>
-          <div class="card-text">{{ netIncome }}</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row justify-content-center">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-title">저번달 지출 분석</div>
-          <div class="card-text">
-            <ChartComponent />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12 d-flex justify-content-end">
-        <router-link to="/transactions">
-          <button
-            class="btn btn-depressed btn-large"
-            style="background-color: yellow; color: white"
-          >
-            <span>거래 내역 보기</span>
-          </button>
-        </router-link>
-        <router-link to="/transactions/create">
-          <button
-            class="btn btn-depressed btn-large"
-            style="background-color: yellow; color: white"
-          >
-            <span>거래 내역 추가</span>
-          </button>
-        </router-link>
-      </div>
-    </div>
-  </div> -->
   <v-container>
+    <!-- 헤더 -->
     <v-row justify="center">
-      <v-col cols="4">
-        <v-card>
-          <v-card-title>{{ currentMonth }} 지출분석</v-card-title>
+      <v-col cols="12" class="text-center">
+        <h2 class="mb-4">{{ currentMonth }} 지출</h2>
+      </v-col>
+    </v-row>
+
+    <!-- 수입/지출/순수익 -->
+    <v-row justify="center">
+      <v-col cols="6" md="4">
+        <v-card class="text-center">
+          <v-card-title class="blue lighten-2 white--text"
+            >총 수입</v-card-title
+          >
+          <v-card-text class="display-1">{{ monthlyIncome }}원</v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="6" md="4">
+        <v-card class="text-center">
+          <v-card-title class="red lighten-2 white--text">총 지출</v-card-title>
+          <v-card-text class="display-1">{{ monthlyExpense }}원</v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="6" md="4">
+        <v-card class="text-center">
+          <v-card-title class="green lighten-2 white--text"
+            >순수익</v-card-title
+          >
+          <v-card-text class="display-1">{{ netIncome }}원</v-card-text>
         </v-card>
       </v-col>
     </v-row>
+
+    <!-- 지난달 지출 분석 차트 -->
     <v-row justify="center">
-      <v-col cols="4">
+      <v-col cols="12" class="text-center">
         <v-card>
-          <v-card-title>총 수입</v-card-title>
-          <v-card-text>{{ monthlyIncome }}원</v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="4">
-        <v-card>
-          <v-card-title>총 지출</v-card-title>
-          <v-card-text>{{ monthlyExpense }}원</v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="4">
-        <v-card>
-          <v-card-title>순수익</v-card-title>
-          <v-card-text>{{ netIncome }}원</v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row justify="center">
-      <v-col cols="12" class="text-left">
-        <v-card>
-          <v-card-title>저번달 지출 분석</v-card-title>
+          <v-card-title class="blue lighten-2 white--text"
+            >지난달 지출 분석</v-card-title
+          >
           <v-card-text>
             <ChartComponent />
           </v-card-text>
+          <span class="text-alarm">저번달보다 200000원 더 썼어요!!!</span>
         </v-card>
       </v-col>
     </v-row>
@@ -114,11 +60,20 @@ const monthlyIncome = computed(() => periodCostStore.monthlyIncome);
 const monthlyExpense = computed(() => periodCostStore.monthlyExpense);
 const netIncome = computed(() => periodCostStore.netIncome);
 
-import { ref } from 'vue';
-
 const currentMonth = computed(() => {
   const now = new Date();
   const previousMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
   return previousMonth.toLocaleString('default', { month: 'long' });
 });
 </script>
+
+<style>
+.text-alarm {
+  font-weight: bold;
+}
+
+.mb-4 {
+  font-weight: bold;
+  font-family: fantasy;
+}
+</style>

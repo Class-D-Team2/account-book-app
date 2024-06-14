@@ -92,6 +92,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useTransactionStore } from '@/stores/transactions';
 
 library.add(faPlus);
 
@@ -111,10 +112,13 @@ export default {
     };
   },
   methods: {
-    addTransaction() {
-      // 추가하는 로직 작성
+    async addTransaction() {
+      const store = useTransactionStore();
+      await store.addTransaction(this.transaction);
+      this.$router.push('/transactions'); // Redirect to home after adding
     },
     goBack() {
+      this.$router.go(-1);
       // 뒤로 가는 로직 작성
     },
   },
