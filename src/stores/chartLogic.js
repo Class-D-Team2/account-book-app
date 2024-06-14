@@ -76,9 +76,15 @@ export const useChartStore = defineStore({
       }
     },
     updateChartData(percentData, newData) {
-      // for (let i = 0; i < 4; i++) {
-      //   this.chartConfig.data.labels += percentData[i];
-      // }
+      for (let i = 0; i < 4; i++) {
+        if (
+          this.chartConfig.data.labels[i].substring(
+            this.chartConfig.data.labels[i].length - 1
+          ) != '%'
+        ) {
+          this.chartConfig.data.labels[i] += ': ' + percentData[i];
+        }
+      }
       this.chartConfig.data.datasets[0].data = newData;
       nextTick(() => {
         // 차트 업데이트

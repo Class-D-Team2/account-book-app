@@ -3,7 +3,7 @@
     <!-- 헤더 -->
     <v-row justify="center">
       <v-col cols="12" class="text-center">
-        <h2 class="mb-4">{{ currentMonth }} 지출</h2>
+        <h2 class="mb-4">{{ currentMonth }} 가계부 요약</h2>
       </v-col>
     </v-row>
 
@@ -38,12 +38,12 @@
       <v-col cols="12" class="text-center">
         <v-card>
           <v-card-title class="blue lighten-2 white--text"
-            >지난달 지출 분석</v-card-title
+            >지난 달 지출 분석</v-card-title
           >
           <v-card-text>
             <ChartComponent />
           </v-card-text>
-          <span class="text-alarm">저번달보다 200000원 더 썼어요!!!</span>
+          <span class="text-alarm">저난 달보다 200000원 더 썼어요!!!</span>
         </v-card>
       </v-col>
     </v-row>

@@ -181,14 +181,6 @@
       "memo": "기타 지출"
     },
     {
-      "id": "2c7d",
-      "date": "2024-05-02",
-      "category": "b",
-      "type": "income",
-      "amount": 120000,
-      "memo": "용돈"
-    },
-    {
       "id": "4b9e",
       "date": "2024-05-17",
       "category": "c",
@@ -433,7 +425,7 @@
       "date": "2024-05-01",
       "category": "a",
       "type": "expense",
-      "amount": 35000,
+      "amount": 50000,
       "memo": "식료품 구매"
     },
     {
@@ -507,6 +499,38 @@
       "type": "expense",
       "amount": 36000,
       "memo": "식당"
+    },
+    {
+      "id": "417d",
+      "date": "2024-05-23",
+      "category": "a",
+      "type": "expense",
+      "amount": 100000,
+      "memo": "고기"
+    },
+    {
+      "id": "a672",
+      "date": "2024-05-31",
+      "category": "a",
+      "type": "income",
+      "amount": 10000000,
+      "memo": "기타 수입"
+    },
+    {
+      "id": "71eb",
+      "date": "2024-05-01",
+      "category": "c",
+      "type": "income",
+      "amount": 10000,
+      "memo": "로또 당첨"
+    },
+    {
+      "id": "13b3",
+      "date": "2024-06-13",
+      "category": "a",
+      "type": "expense",
+      "amount": 240000,
+      "memo": "간맥"
     }
   ]
 }
