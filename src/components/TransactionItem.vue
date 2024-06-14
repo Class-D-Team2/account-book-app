@@ -1,75 +1,41 @@
 <template>
-  <!-- <li class="transaction-item">
-    <span class="transaction-details">
-      <div v-if="transactionItem.type === 'income'">
-        {{
-          `${transactionItem.date} / ${mapType(
-            transactionItem.type
-          )} / ${mapIncomeCategory(transactionItem.category)} / ${
-            transactionItem.memo
-          } / ${transactionItem.amount}`
-        }}
-      </div>
-      <div v-else-if="transactionItem.type === 'expense'">
-        {{
-          `${transactionItem.date} / ${mapType(
-            transactionItem.type
-          )} / ${mapExpenseCategory(transactionItem.category)} / ${
-            transactionItem.memo
-          } / ${transactionItem.amount}`
-        }}
-      </div>
-    </span>
-  </li> -->
-
-  <v-list-item>
-    <v-list-item-content>
-      <div v-if="transactionItem.type === 'income'">
-        <span>{{ transactionItem.date }}</span>
-        <span>{{ mapType(transactionItem.type) }}</span>
-        <span>{{ mapIncomeCategory(transactionItem.category) }}</span>
-        <span>{{ transactionItem.memo }}</span>
-        <span>{{ transactionItem.amount }}</span>
-      </div>
-      <div v-else-if="transactionItem.type === 'expense'">
-        <span>{{ transactionItem.date }}</span>
-        <span>{{ mapType(transactionItem.type) }}</span>
-        <span>{{ mapExpenseCategory(transactionItem.category) }}</span>
-        <span>{{ transactionItem.memo }}</span>
-        <span>{{ transactionItem.amount }}</span>
-      </div>
-    </v-list-item-content>
-  </v-list-item>
+  <tr class="transaction-item" @click="navigateToUpdate">
+    <td>{{ transactionItem.date }}</td>
+    <td>{{ mapType(transactionItem.type) }}</td>
+    <td v-if="transactionItem.type === 'income'">
+      {{ mapIncomeCategory(transactionItem.category) }}
+    </td>
+    <td v-else-if="transactionItem.type === 'expense'">
+      {{ mapExpenseCategory(transactionItem.category) }}
+    </td>
+    <td>{{ transactionItem.memo }}</td>
+    <td>{{ transactionItem.amount }}</td>
+  </tr>
 </template>
+
 <style scoped>
 .transaction-item {
-  display: flex;
-  width: 100%;
-  margin-bottom: 10px;
-}
-.transaction-details {
-  flex: 1;
-  margin-right: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  border: 2px solid black;
-  padding: 5px;
-  letter-spacing: 2px;
+  cursor: pointer;
 }
 
-.transaction-item span {
-  flex: 1;
-  padding: 10px;
-  border-right: 1px solid #ccc;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.transaction-item:hover {
+  background-color: #f9f9f9;
 }
 </style>
+
 <script setup>
-defineProps({
+import { useRouter } from 'vue-router';
+
+const props = defineProps({
   transactionItem: { type: Object, required: true },
 });
+
+const router = useRouter();
+
+const navigateToUpdate = () => {
+  router.push(`/transactions/update/${props.transactionItem.id}`);
+};
+
 const typeMapping = {
   income: '수입',
   expense: '지출',
@@ -77,6 +43,7 @@ const typeMapping = {
 function mapType(type) {
   return typeMapping[type] || type;
 }
+
 const incomeCategoryMapping = {
   a: '월급',
   b: '용돈',
@@ -86,6 +53,7 @@ const incomeCategoryMapping = {
 function mapIncomeCategory(category) {
   return incomeCategoryMapping[category] || category;
 }
+
 const expenseCategoryMapping = {
   a: '식비',
   b: '교통비',
