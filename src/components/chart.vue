@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align: left">
+  <div>
     <canvas ref="chartCanvas" width="400" height="300"></canvas>
   </div>
 </template>

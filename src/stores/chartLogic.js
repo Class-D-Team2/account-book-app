@@ -43,7 +43,7 @@ export const useChartStore = defineStore({
           const filtered = transactions
             .filter((transaction) => transaction.type === 'expense')
             .filter(
-              (transaction) => transaction.date.substring(0, 7) === '2024-06'
+              (transaction) => transaction.date.substring(0, 7) === '2024-05'
             );
 
           const newData = [];

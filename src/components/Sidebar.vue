@@ -16,11 +16,13 @@
         <li>
           <router-link class="nav-link" to="/calendar">월간내역</router-link>
         </li>
+        <li>
+          <router-link class="nav-link" to="/transactions/create">
+            내역추가
+          </router-link>
+        </li>
       </ul>
     </div>
-    <router-link class="nav-link" to="/transactions/create">
-      내역추가
-    </router-link>
   </nav>
 </template>
 

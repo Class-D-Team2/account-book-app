@@ -1,18 +1,22 @@
 <template>
-  <h1 text-align="center">월간내역</h1>
+  <!-- <h1 text-align="center">월간내역</h1> -->
   <div class="scroll-container">
     <div class="calender-container">
       <div class="calendar-header">
         <!-- 년도 출력 -->
         <div class="year">{{ year }}년</div>
         <!-- 월 출력과 이전/다음 달 버튼을 감싸는 div -->
+      </div>
+      <div class="calendar-body">
         <div class="month-nav">
           <!-- 이전 달 버튼 -->
-          <button @click="prevMonth">지난 달</button>
+          <button @click="prevMonth">
+            <span class="arrow">◀</span>
+          </button>
           <!-- 월 출력 -->
-          <div class="month">{{ month }}월</div>
+          <div class="month fs-2">{{ month }}월</div>
           <!-- 다음 달 버튼 -->
-          <button @click="nextMonth">다음 달</button>
+          <button @click="nextMonth"><span class="arrow">▶</span></button>
         </div>
       </div>
       <table class="table table-bordered text-center calendar-table">
@@ -32,7 +36,7 @@
                 <!-- 날짜가 빈 값이 아닐 때만 거래 항목 표시 -->
 
                 <template v-if="date !== ''">
-                  <li
+                  <!-- <li
                     v-for="transactionItem in getTransactionsForDate(
                       year,
                       month,
@@ -43,16 +47,23 @@
                   >
                     <div class="transaction-details">
                       {{ mapType(transactionItem.type) }} /
-                      {{
-                        mapCategory(
-                          transactionItem.type,
-                          transactionItem.category
-                        )
-                      }}
-
                       {{ transactionItem.amount }}
                     </div>
-                  </li>
+                  </li> -->
+                  <div
+                    class="totalIncome"
+                    v-if="getTotalIncomeForDate(year, month, date) != 0"
+                  >
+                    {{ '수입' }} {{ getTotalIncomeForDate(year, month, date) }}
+                  </div>
+                  <!-- {{ '수입' }} {{ getTotalIncomeForDate(year, month, date) }} -->
+                  <div
+                    class="totalOutcome"
+                    v-if="getTotalExpenseForDate(year, month, date) != 0"
+                  >
+                    {{ '지출' }} {{ getTotalExpenseForDate(year, month, date) }}
+                  </div>
+                  <!-- {{ '지출' }} {{ getTotalExpenseForDate(year, month, date) }} -->
                 </template>
               </ul>
             </td>
@@ -103,7 +114,6 @@ export default {
       const lastDay = new Date(year, month, 0);
 
       let currentWeek = [];
-      let currentDate = 1;
 
       const lastDate = lastDay.getDate();
 
@@ -164,25 +174,50 @@ export default {
       const category = categories.find((cat) => cat.id === categoryId);
       return category ? category.name : '';
     },
+    getTotalIncomeForDate(year, month, date) {
+      const transactions = this.getTransactionsForDate(year, month, date);
+      return transactions.reduce((totalIncome, transaction) => {
+        if (transaction.type === 'income') {
+          return totalIncome + transaction.amount;
+        }
+        return totalIncome;
+      }, 0);
+    },
+    getTotalExpenseForDate(year, month, date) {
+      const transactions = this.getTransactionsForDate(year, month, date);
+      return transactions.reduce((totalExpense, transaction) => {
+        if (transaction.type === 'expense') {
+          return totalExpense + transaction.amount;
+        }
+        return totalExpense;
+      }, 0);
+    },
   },
 };
 </script>
 <style scoped>
 .scroll-container {
-  height: 800px;
-  width: 800px;
+  height: 90vh;
+  width: 80vw;
   overflow-y: auto;
   overflow-x: auto;
-  margin: auto;
+  margin: 0;
 }
 
 .calendar-container {
-  /* width: 100%; 최대 너비 */
+  width: 100%;
   overflow-y: auto;
   overflow-x: auto;
+  padding: 0;
 }
 
 .calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+.calendar-body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -206,14 +241,9 @@ export default {
   margin: 0 0.5em;
 }
 
-.calendar-table th,
-.calendar-table td {
-  width: 2em;
-}
-
-.calendar-table td {
-  height: 2em;
-  padding: 0;
+.calendar-table {
+  width: 100%;
+  table-layout: fixed;
 }
 
 .date-cell {
@@ -221,21 +251,21 @@ export default {
   align-items: flex-start;
   justify-content: flex-start;
   padding: 0.5em;
+  height: 10px;
 }
 
 .transaction-item {
   display: flex;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
-/* .transaction-details {
-  달력크기 조절 여기에서 실행
-  /* flex: 1;
-  margin-right: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  border: 2px solid black;
-  padding: 5px;
-  letter-spacing: 2px;
-} */
+.totalIncome {
+  color: red;
+  /* 달력 개별 아이템 style -> 위치 수정, 색낄 조건문, 카테고리 별 아이콘? */
+}
+
+.totalOutcome {
+  color: blue;
+  /* 달력 개별 아이템 style -> 위치 수정, 색낄 조건문, 카테고리 별 아이콘? */
+}
 </style>

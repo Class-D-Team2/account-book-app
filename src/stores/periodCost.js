@@ -27,7 +27,7 @@ export const usePeriodCostStore = defineStore('periodCost', () => {
   const monthlyExpense = computed(() => {
     const filtered = state.transactions
       .filter((transaction) => transaction.type === 'expense')
-      .filter((transaction) => transaction.date.substring(0, 7) === '2024-06');
+      .filter((transaction) => transaction.date.substring(0, 7) === '2024-05');
     let totalAmount = 0;
     filtered.forEach((transaction) => {
       totalAmount += transaction.amount;
@@ -39,7 +39,7 @@ export const usePeriodCostStore = defineStore('periodCost', () => {
   const monthlyIncome = computed(() => {
     const filtered = state.transactions
       .filter((transaction) => transaction.type === 'income')
-      .filter((transaction) => transaction.date.substring(0, 7) === '2024-06');
+      .filter((transaction) => transaction.date.substring(0, 7) === '2024-05');
     let totalAmount = 0;
     filtered.forEach((transaction) => {
       totalAmount += transaction.amount;

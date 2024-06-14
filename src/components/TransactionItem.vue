@@ -1,7 +1,7 @@
 <template>
-  <li class="transaction-item">
+  <!-- <li class="transaction-item">
     <span class="transaction-details">
-      <template v-if="transactionItem.type === 'income'">
+      <div v-if="transactionItem.type === 'income'">
         {{
           `${transactionItem.date} / ${mapType(
             transactionItem.type
@@ -9,8 +9,8 @@
             transactionItem.memo
           } / ${transactionItem.amount}`
         }}
-      </template>
-      <template v-else-if="transactionItem.type === 'expense'">
+      </div>
+      <div v-else-if="transactionItem.type === 'expense'">
         {{
           `${transactionItem.date} / ${mapType(
             transactionItem.type
@@ -18,13 +18,33 @@
             transactionItem.memo
           } / ${transactionItem.amount}`
         }}
-      </template>
+      </div>
     </span>
-  </li>
+  </li> -->
+
+  <v-list-item>
+    <v-list-item-content>
+      <div v-if="transactionItem.type === 'income'">
+        <span>{{ transactionItem.date }}</span>
+        <span>{{ mapType(transactionItem.type) }}</span>
+        <span>{{ mapIncomeCategory(transactionItem.category) }}</span>
+        <span>{{ transactionItem.memo }}</span>
+        <span>{{ transactionItem.amount }}</span>
+      </div>
+      <div v-else-if="transactionItem.type === 'expense'">
+        <span>{{ transactionItem.date }}</span>
+        <span>{{ mapType(transactionItem.type) }}</span>
+        <span>{{ mapExpenseCategory(transactionItem.category) }}</span>
+        <span>{{ transactionItem.memo }}</span>
+        <span>{{ transactionItem.amount }}</span>
+      </div>
+    </v-list-item-content>
+  </v-list-item>
 </template>
 <style scoped>
 .transaction-item {
   display: flex;
+  width: 100%;
   margin-bottom: 10px;
 }
 .transaction-details {
@@ -35,6 +55,15 @@
   border: 2px solid black;
   padding: 5px;
   letter-spacing: 2px;
+}
+
+.transaction-item span {
+  flex: 1;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
 <script setup>
