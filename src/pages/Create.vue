@@ -1,22 +1,35 @@
 <template>
   <div>
-    <h1>Add Transaction</h1>
-    <form @submit.prevent="addTransaction">
-      <div>
-        <label for="date">날짜:</label>
-        <input type="date" v-model="transaction.date" id="date" required />
+    <h1>거래내역 추가</h1>
+    <form @submit.prevent="addTransaction" class="transaction-form">
+      <div class="form-group">
+        <label for="date" class="label">날짜:</label>
+        <input
+          type="date"
+          v-model="transaction.date"
+          id="date"
+          class="input-field"
+        />
       </div>
-      <div>
-        <label for="type">거래유형:</label>
-        <select v-model="transaction.type" id="type" required>
+
+      <div class="form-group">
+        <label for="type" class="label">거래유형:</label>
+        <select v-model="transaction.type" id="type" class="input-field">
+          <option value="" disabled selected>거래유형을 선택하세요</option>
           <option value="income">수입</option>
           <option value="expense">지출</option>
         </select>
       </div>
+
       <template v-if="transaction.type === 'income'">
-        <div>
-          <label for="category">세부내역:</label>
-          <select v-model="transaction.category" id="category" required>
+        <div class="form-group">
+          <label for="category" class="label">세부내역:</label>
+          <select
+            v-model="transaction.category"
+            id="category"
+            class="input-field"
+          >
+            <option value="" disabled selected>거래유형을 선택하세요</option>
             <option value="a">월급</option>
             <option value="b">용돈</option>
             <option value="c">금융소득</option>
@@ -24,10 +37,16 @@
           </select>
         </div>
       </template>
+
       <template v-if="transaction.type === 'expense'">
-        <div>
-          <label for="category">세부내역:</label>
-          <select v-model="transaction.category" id="category" required>
+        <div class="form-group">
+          <label for="category" class="label">세부내역:</label>
+          <select
+            v-model="transaction.category"
+            id="category"
+            class="input-field"
+          >
+            <option value="" disabled selected>거래유형을 선택하세요</option>
             <option value="a">식비</option>
             <option value="b">교통비</option>
             <option value="c">주거비</option>
@@ -36,27 +55,50 @@
         </div>
       </template>
 
-      <div>
-        <label for="amount">금액:</label>
+      <div class="form-group">
+        <label for="amount" class="label">금액:</label>
         <input
           type="number"
           v-model="transaction.amount"
           id="amount"
-          required
+          class="input-field"
+          placeholder="금액을 입력하세요"
         />
       </div>
-      <div>
-        <label for="memo">세부사항:</label>
-        <input type="text" v-model="transaction.memo" id="memo" required />
+
+      <div class="form-group">
+        <label for="memo" class="label">세부사항:</label>
+        <input
+          type="text"
+          v-model="transaction.memo"
+          id="memo"
+          class="input-field"
+          placeholder="세부사항을 입력하세요"
+        />
       </div>
-      <button type="submit">추가</button>
-      <button @click="goBack">취소</button>
+
+      <div class="button-group">
+        <button type="submit" class="btn-submit">
+          <font-awesome-icon icon="plus" />
+          추가
+        </button>
+        <button @click="goBack">취소</button>
+      </div>
     </form>
   </div>
 </template>
+
 <script>
-import { useTransactionStore } from '@/stores/transactions';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faPlus);
+
 export default {
+  components: {
+    FontAwesomeIcon,
+  },
   data() {
     return {
       transaction: {
@@ -69,37 +111,72 @@ export default {
     };
   },
   methods: {
-    async addTransaction() {
-      const store = useTransactionStore();
-      await store.addTransaction(this.transaction);
-      this.$router.push('/transactions'); // Redirect to home after adding
+    addTransaction() {
+      // 추가하는 로직 작성
     },
     goBack() {
-      this.$router.go(-1);
+      // 뒤로 가는 로직 작성
     },
   },
 };
-
-// const categoryMapping = {
-//   income: [
-//     { value: 'a', label: '월급' },
-//     { value: 'b', label: '용돈' },
-//     { value: 'c', label: '금융소득' },
-//     { value: 'd', label: '기타' },
-//   ],
-//   expense: [
-//     { value: 'a', label: '식비' },
-//     { value: 'b', label: '교통비' },
-//     { value: 'c', label: '주거비' },
-//     { value: 'd', label: '기타' },
-//   ],
-// };
-// const filteredCategories = computed(() => {
-//   return selectedType.value === 'all'
-//     ? []
-//     : categoryMapping[selectedType.value] || [];
-// });
 </script>
+
 <style scoped>
-/* Add any specific styles for this component */
+.transaction-form {
+  max-width: 400px; /* 폼의 최대 너비 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.form-group {
+  margin-bottom: 1rem; /* 각 입력 필드 아래 여백 설정 */
+  display: flex; /* Flexbox 사용 */
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+.label {
+  width: 100px; /* 레이블 너비 설정 */
+  margin-right: 1rem; /* 레이블 오른쪽 여백 설정 */
+}
+
+.input-field {
+  flex: 1; /* 입력 필드가 남은 공간 모두 차지하도록 설정 */
+  padding: 0.5rem; /* 입력 필드 내 여백 설정 */
+  border: 1px solid #ccc; /* 입력 필드 테두리 설정 */
+  border-radius: 4px; /* 입력 필드 테두리 둥글게 설정 */
+}
+
+.button-group {
+  margin-top: 1rem; /* 버튼 그룹 위 여백 설정 */
+  text-align: right; /* 버튼을 오른쪽 정렬 */
+}
+
+.btn-submit {
+  margin-left: 0.5rem; /* 추가 버튼 왼쪽 여백 설정 */
+  padding: 0.5rem 1rem; /* 버튼 내 여백 설정 */
+  font-size: 1rem; /* 버튼 내의 텍스트 크기 설정 */
+  border: 1px solid #007bff; /* 버튼 테두리 설정 */
+  background-color: #007bff; /* 버튼 배경색 설정 */
+  color: white; /* 버튼 텍스트 색상 설정 */
+  border-radius: 4px; /* 버튼 테두리 둥글게 설정 */
+}
+
+.btn-submit:hover {
+  background-color: #0056b3; /* 마우스 호버 시 배경색 변경 */
+  border-color: #0056b3; /* 마우스 호버 시 테두리 색상 변경 */
+}
+
+button {
+  margin-left: 0.5rem; /* 버튼 사이 여백 설정 */
+  padding: 0.5rem 1rem; /* 버튼 내 여백 설정 */
+  font-size: 1rem; /* 버튼 내의 텍스트 크기 설정 */
+  border: 1px solid #6c757d; /* 버튼 테두리 설정 */
+  background-color: #6c757d; /* 버튼 배경색 설정 */
+  color: white; /* 버튼 텍스트 색상 설정 */
+  border-radius: 4px; /* 버튼 테두리 둥글게 설정 */
+}
+
+button:hover {
+  background-color: #5a6268; /* 마우스 호버 시 배경색 변경 */
+  border-color: #545b62; /* 마우스 호버 시 테두리 색상 변경 */
+}
 </style>

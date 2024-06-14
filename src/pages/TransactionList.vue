@@ -1,7 +1,7 @@
 <template>
   <h1>거래내역 조회</h1>
-  <div class="scroll-container">
-    <div>
+  <div class="filter-container">
+    <div class="filter-group">
       <label for="transactionType">거래 유형:</label>
       <select id="transactionType" v-model="selectedType">
         <option value="all">전체</option>
@@ -9,7 +9,7 @@
         <option value="expense">지출</option>
       </select>
     </div>
-    <div v-if="selectedType !== 'all'" class="category-container">
+    <div v-if="selectedType !== 'all'" class="filter-group">
       <label for="transactionCategory">카테고리:</label>
       <select id="transactionCategory" v-model="selectedCategory">
         <option value="all">전체</option>
@@ -22,60 +22,138 @@
         </option>
       </select>
     </div>
-    <div class="date-picker-container">
-      <!-- 기간 선택 필드 -->
+    <div class="filter-group date-picker-container">
       <label for="startDate">기간:</label>
-      <input type="date" id="startDate" v-model="startDate" />
+      <input
+        type="date"
+        id="startDate"
+        v-model="startDate"
+        @click="openDatePicker($event)"
+      />
       <span> ~ </span>
-      <input type="date" id="endDate" v-model="endDate" />
+      <input
+        type="date"
+        id="endDate"
+        v-model="endDate"
+        @click="openDatePicker($event)"
+      />
     </div>
+  </div>
 
-    <div class="card">
-      <ul>
-        <router-link
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Memo</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <TransactionItem
           v-for="transactionItem in filteredList"
           :key="transactionItem.id"
           :transactionItem="transactionItem"
-          :to="`/transactions/update/${transactionItem.id}`"
-          class="router-link"
-          ><TransactionItem :transactionItem="transactionItem"
-        /></router-link>
-      </ul>
-    </div>
+        />
+      </tbody>
+    </table>
   </div>
 </template>
+
 <style>
+/* General styling */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .scroll-container {
   height: 600px;
   overflow-y: auto;
   margin: auto;
 }
 
-.router-link {
-  text-decoration: none;
-  color: inherit;
+.card {
+  width: 100%;
+  overflow-x: auto;
 }
 
-.router-link:visited,
-.router-link:hover,
-.router-link:active {
-  color: inherit;
+/* Filter section styling */
+.filter-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.date-picker-container {
+
+.filter-group {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
-.date-picker-container label {
+
+.filter-group label {
   margin-right: 10px;
-}
-.date-picker-container input {
-  margin-left: 5px;
-  margin-right: 5px;
+  font-weight: bold;
 }
 
-.category-container {
-  margin-bottom: 10px;
+.filter-group input,
+.filter-group select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer; /* Add this line */
+}
+
+/* Date picker specific styles */
+.date-picker-container input {
+  cursor: pointer; /* Add this line */
+}
+
+.date-picker-container input::-webkit-calendar-picker-indicator {
+  cursor: pointer; /* Add this line */
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+/* Add alternating row colors with darker shades */
+tbody tr:nth-child(odd) {
+  background-color: #e6e6e6;
+}
+tbody tr:nth-child(even) {
+  background-color: #cccccc;
+}
+
+.transaction-item:hover {
+  background-color: #b3b3b3;
 }
 </style>
 
@@ -139,4 +217,9 @@ const filteredList = computed(() => {
 
 const fetchTransactionList = transactionListStore.fetchTransaction;
 fetchTransactionList();
+
+// Function to open date picker
+const openDatePicker = (event) => {
+  event.target.showPicker();
+};
 </script>
