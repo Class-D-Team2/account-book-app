@@ -1,26 +1,32 @@
 <template>
   <nav class="sidebar">
-    <span class="navbar-brand ps-2 fs-1">2조 가계부</span>
+    <h1 class="logo">
+      <img src="/kb.png" class="logo-img" style="width: 250px; height: 200px" />
+    </h1>
     <div>
-      <ul class="navbar-nav">
-        <li>
-          <!-- to에 있는 주소로 각각의 링크 생성해줌 -->
-          <router-link class="nav-link" to="/">메인화면</router-link>
-        </li>
-        <li>
-          <router-link class="nav-link" to="/transactions"
-            >거래내역</router-link
-          >
-        </li>
-        <!-- 달력 추가 -->
-        <li>
-          <router-link class="nav-link" to="/calendar">월간내역</router-link>
-        </li>
-      </ul>
+      <div>
+        <ul class="navbar-nav">
+          <li>
+            <!-- to에 있는 주소로 각각의 링크 생성해줌 -->
+            <router-link class="nav-link" to="/">메인화면</router-link>
+          </li>
+          <li>
+            <router-link class="nav-link" to="/transactions"
+              >거래내역</router-link
+            >
+          </li>
+          <!-- 달력 추가 -->
+          <li>
+            <router-link class="nav-link" to="/calendar">월간내역</router-link>
+          </li>
+          <li>
+            <router-link class="nav-link" to="/transactions/create">
+              내역추가
+            </router-link>
+          </li>
+        </ul>
+      </div>
     </div>
-    <router-link class="nav-link" to="/transactions/create">
-      내역추가
-    </router-link>
   </nav>
 </template>
 
@@ -41,7 +47,11 @@
   transition: all 0.3s;
   display: flex;
   flex-direction: column;
-  padding-top: 1em;
+  padding-top: 0; /* 상단 여백 제거 */
+}
+
+.logo {
+  margin-bottom: 1rem; /* 로고 아래 여백 추가 */
 }
 
 .nav-link {

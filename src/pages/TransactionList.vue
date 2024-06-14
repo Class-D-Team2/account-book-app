@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="scroll-container">
     <table>
       <thead>
         <tr>

@@ -11,7 +11,7 @@ export const useChartStore = defineStore({
         labels: ['식비', '교통비', '공과금', '기타지출'],
         datasets: [
           {
-            label: '이번달 지출 분석',
+            label: [],
             data: [],
             backgroundColor: ['red', 'yellow', 'green', 'blue'],
           },
@@ -26,7 +26,7 @@ export const useChartStore = defineStore({
           },
           title: {
             display: true,
-            text: 'Chart.js Pie Chart',
+            text: '5월 지출내역',
           },
         },
       },
@@ -43,21 +43,31 @@ export const useChartStore = defineStore({
           const filtered = transactions
             .filter((transaction) => transaction.type === 'expense')
             .filter(
-              (transaction) => transaction.date.substring(0, 7) === '2024-06'
+              (transaction) => transaction.date.substring(0, 7) === '2024-05'
             );
 
           const newData = [];
+          const percentData = [];
           for (let i = 0; i < 4; i++) {
             let totalAmount = 0;
+            let total = 0;
+            let percent = 0;
+
+            filtered.forEach((transaction) => {
+              total += transaction.amount;
+            });
+
             filtered
               .filter((transaction) => transaction.category === category[i])
               .forEach((transaction) => {
                 totalAmount += transaction.amount;
               });
+            percent = Math.round((totalAmount / total) * 100) + '%';
+            percentData.push(percent);
             newData.push(totalAmount);
           }
 
-          this.updateChartData(newData);
+          this.updateChartData(percentData, newData);
         } else {
           alert('데이터 조회 실패');
         }
@@ -65,7 +75,10 @@ export const useChartStore = defineStore({
         console.log('에러발생:', error);
       }
     },
-    updateChartData(newData) {
+    updateChartData(percentData, newData) {
+      // for (let i = 0; i < 4; i++) {
+      //   this.chartConfig.data.labels += percentData[i];
+      // }
       this.chartConfig.data.datasets[0].data = newData;
       nextTick(() => {
         // 차트 업데이트
