@@ -2,6 +2,7 @@
   <div>
     <h1>거래내역 추가</h1>
     <form @submit.prevent="addTransaction" class="transaction-form">
+      <div v-if="alert" class="alert">{{ alertMessage }}</div>
       <div class="form-group">
         <label for="date" class="label">날짜:</label>
         <input
@@ -9,12 +10,18 @@
           v-model="transaction.date"
           id="date"
           class="input-field"
+          required
         />
       </div>
 
       <div class="form-group">
         <label for="type" class="label">거래유형:</label>
-        <select v-model="transaction.type" id="type" class="input-field">
+        <select
+          v-model="transaction.type"
+          id="type"
+          class="input-field"
+          required
+        >
           <option value="" disabled selected>거래유형을 선택하세요</option>
           <option value="income">수입</option>
           <option value="expense">지출</option>
@@ -28,8 +35,9 @@
             v-model="transaction.category"
             id="category"
             class="input-field"
+            required
           >
-            <option value="" disabled selected>거래유형을 선택하세요</option>
+            <option value="" disabled selected>세부내역을 선택하세요</option>
             <option value="a">월급</option>
             <option value="b">용돈</option>
             <option value="c">금융소득</option>
@@ -45,8 +53,9 @@
             v-model="transaction.category"
             id="category"
             class="input-field"
+            required
           >
-            <option value="" disabled selected>거래유형을 선택하세요</option>
+            <option value="" disabled selected>세부내역을 선택하세요</option>
             <option value="a">식비</option>
             <option value="b">교통비</option>
             <option value="c">주거비</option>
@@ -62,6 +71,7 @@
           v-model="transaction.amount"
           id="amount"
           class="input-field"
+          required
           placeholder="금액을 입력하세요"
         />
       </div>
@@ -73,6 +83,7 @@
           v-model="transaction.memo"
           id="memo"
           class="input-field"
+          required
           placeholder="세부사항을 입력하세요"
         />
       </div>
@@ -82,7 +93,7 @@
           <font-awesome-icon icon="plus" />
           추가
         </button>
-        <button @click="goBack">취소</button>
+        <button type="button" @click="goBack">취소</button>
       </div>
     </form>
   </div>
@@ -109,17 +120,29 @@ export default {
         amount: '',
         memo: '',
       },
+      alert: false,
+      alertMessage: '',
     };
   },
   methods: {
     async addTransaction() {
+      if (
+        !this.transaction.date ||
+        !this.transaction.type ||
+        !this.transaction.category ||
+        !this.transaction.amount
+      ) {
+        this.alertMessage = '모든 필수 항목을 입력해주세요.';
+        this.alert = true;
+        return;
+      }
+
       const store = useTransactionStore();
       await store.addTransaction(this.transaction);
-      this.$router.push('/transactions'); // Redirect to home after adding
+      this.$router.push('/transactions'); // 추가 후 홈으로 리디렉션
     },
     goBack() {
-      this.$router.go(-1);
-      // 뒤로 가는 로직 작성
+      this.$router.go(-1); // 뒤로 가기
     },
   },
 };
@@ -182,5 +205,10 @@ button {
 button:hover {
   background-color: #5a6268; /* 마우스 호버 시 배경색 변경 */
   border-color: #545b62; /* 마우스 호버 시 테두리 색상 변경 */
+}
+
+.alert {
+  color: red; /* 경고 메시지 색상 */
+  margin-bottom: 1rem; /* 경고 메시지 아래 여백 */
 }
 </style>
