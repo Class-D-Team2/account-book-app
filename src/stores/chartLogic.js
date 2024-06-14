@@ -5,7 +5,6 @@ import { nextTick } from 'vue';
 export const useChartStore = defineStore({
   id: 'chart',
   state: () => ({
-    chart: null,
     chartConfig: {
       type: 'pie',
       data: {
