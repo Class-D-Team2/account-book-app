@@ -1,46 +1,41 @@
 <template>
-  <li class="transaction-item">
-    <span class="transaction-details">
-      <template v-if="transactionItem.type === 'income'">
-        {{
-          `${transactionItem.date} / ${mapType(
-            transactionItem.type
-          )} / ${mapIncomeCategory(transactionItem.category)} / ${
-            transactionItem.memo
-          } / ${transactionItem.amount}`
-        }}
-      </template>
-      <template v-else-if="transactionItem.type === 'expense'">
-        {{
-          `${transactionItem.date} / ${mapType(
-            transactionItem.type
-          )} / ${mapExpenseCategory(transactionItem.category)} / ${
-            transactionItem.memo
-          } / ${transactionItem.amount}`
-        }}
-      </template>
-    </span>
-  </li>
+  <tr class="transaction-item" @click="navigateToUpdate">
+    <td>{{ transactionItem.date }}</td>
+    <td>{{ mapType(transactionItem.type) }}</td>
+    <td v-if="transactionItem.type === 'income'">
+      {{ mapIncomeCategory(transactionItem.category) }}
+    </td>
+    <td v-else-if="transactionItem.type === 'expense'">
+      {{ mapExpenseCategory(transactionItem.category) }}
+    </td>
+    <td>{{ transactionItem.memo }}</td>
+    <td>{{ transactionItem.amount }}</td>
+  </tr>
 </template>
+
 <style scoped>
 .transaction-item {
-  display: flex;
-  margin-bottom: 10px;
+  cursor: pointer;
 }
-.transaction-details {
-  flex: 1;
-  margin-right: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  border: 2px solid black;
-  padding: 5px;
-  letter-spacing: 2px;
+
+.transaction-item:hover {
+  background-color: #f9f9f9;
 }
 </style>
+
 <script setup>
-defineProps({
+import { useRouter } from 'vue-router';
+
+const props = defineProps({
   transactionItem: { type: Object, required: true },
 });
+
+const router = useRouter();
+
+const navigateToUpdate = () => {
+  router.push(`/transactions/update/${props.transactionItem.id}`);
+};
+
 const typeMapping = {
   income: '수입',
   expense: '지출',
@@ -48,6 +43,7 @@ const typeMapping = {
 function mapType(type) {
   return typeMapping[type] || type;
 }
+
 const incomeCategoryMapping = {
   a: '월급',
   b: '용돈',
@@ -57,6 +53,7 @@ const incomeCategoryMapping = {
 function mapIncomeCategory(category) {
   return incomeCategoryMapping[category] || category;
 }
+
 const expenseCategoryMapping = {
   a: '식비',
   b: '교통비',
